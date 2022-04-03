@@ -130,6 +130,12 @@
     <Folder Include="Controllers\" />
     <Folder Include="Models\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GamersShop.Domain\GamersShop.Domain.csproj">
+      <Project>{2D04D2B2-8055-424E-B403-FB997D0B25D2}</Project>
+      <Name>GamersShop.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
