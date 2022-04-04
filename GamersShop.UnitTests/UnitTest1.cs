@@ -60,10 +60,10 @@ namespace GamersShop.UnitTests
             };
 
             // Arrange - настройка делегата с помощью лямбда-выражения
-            Func<int, string> pageUrlDelegate = i => "Page" + i;
+            string pageUrlDelegate(int i) => "Page" + i;
 
             // Act
-            MvcHtmlString result = myHelper.PageLinks(pagingInfo, pageUrlDelegate);
+            MvcHtmlString result = myHelper.PageLinks(pagingInfo, (Func<int, string>)pageUrlDelegate);
 
             // Assert
             Assert.AreEqual(@"<a class=""btn btn-default"" href=""Page1"">1</a>"
