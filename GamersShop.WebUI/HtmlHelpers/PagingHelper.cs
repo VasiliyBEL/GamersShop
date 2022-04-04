@@ -12,11 +12,6 @@ namespace GamersShop.WebUI.HtmlHelpers
     {
         public static MvcHtmlString PageLinks(this HtmlHelper html, PagingInfo pagingInfo, Func<int, string> pageUrl)
         {
-            if (html is null)
-            {
-                throw new ArgumentNullException(nameof(html));
-            }
-
             StringBuilder result = new StringBuilder();
             for (int i = 1; i <= pagingInfo.TotalPages; i++)
             {
