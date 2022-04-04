@@ -1,11 +1,12 @@
-﻿@using GamersShop.Domain.Entities
-@model IEnumerable<Game>
+﻿@using GamersShop.WebUI.Models
+@using GamersShop.WebUI.HtmlHelpers
+@model GamesListViewModel
 
 @{
     ViewBag.Title = "Товары";
 }
 
-@foreach (var p in @Model)
+@foreach (var p in @Model.Games)
 {
     <div>
         <h3>@p.Name</h3>
@@ -13,3 +14,7 @@
         <h4>@p.Price.ToString("# руб")</h4>
     </div>
 }
+
+<div>
+    @Html.PageLinks(Model.PagingInfo, x => Url.Action("List", new { page = x }));
+</div>

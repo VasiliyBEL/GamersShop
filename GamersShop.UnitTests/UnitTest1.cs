@@ -34,10 +34,10 @@ namespace GamersShop.UnitTests
             };
 
             // Act
-            IEnumerable<Game> result = (IEnumerable<Game>)controller.List(2).Model;
+            GamesListViewModel result = (GamesListViewModel)controller.List(2).Model;
 
             // Assert
-            List<Game> games = result.ToList();
+            List<Game> games = result.Games.ToList();
             Assert.IsTrue(games.Count == 2);
             Assert.AreEqual(games[0].Name, "Игра4");
             Assert.AreEqual(games[1].Name, "Игра5");
