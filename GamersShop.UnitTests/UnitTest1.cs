@@ -1,11 +1,14 @@
-﻿using GamersShop.Domain.Abstract;
+﻿using System;
+using Moq;
+using System.Linq;
+using System.Web.Mvc;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
+using GamersShop.Domain.Abstract;
 using GamersShop.Domain.Entities;
 using GamersShop.WebUI.Controllers;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using GamersShop.WebUI.HtmlHelpers;
+using GamersShop.WebUI.Models;
 
 namespace GamersShop.UnitTests
 {
@@ -19,11 +22,11 @@ namespace GamersShop.UnitTests
             Mock<IGameRepository> mock = new Mock<IGameRepository>();
             mock.Setup(m => m.Games).Returns(new List<Game>
             {
-                new Game { GameId = 1, Name = "Game1"},
-                new Game { GameId = 2, Name = "Game2"},
-                new Game { GameId = 3, Name = "Game3"},
-                new Game { GameId = 4, Name = "Game4"},
-                new Game { GameId = 5, Name = "Game5"}
+                new Game { GameId = 1, Name = "Игра1"},
+                new Game { GameId = 2, Name = "Игра2"},
+                new Game { GameId = 3, Name = "Игра3"},
+                new Game { GameId = 4, Name = "Игра4"},
+                new Game { GameId = 5, Name = "Игра5"}
             });
             GameController controller = new GameController(mock.Object)
             {
@@ -36,8 +39,37 @@ namespace GamersShop.UnitTests
             // Assert
             List<Game> games = result.ToList();
             Assert.IsTrue(games.Count == 2);
-            Assert.AreEqual(games[0].Name, "Game4");
-            Assert.AreEqual(games[1].Name, "Game5");
+            Assert.AreEqual(games[0].Name, "Игра4");
+            Assert.AreEqual(games[1].Name, "Игра5");
+        }
+
+        [TestMethod]
+        public void Can_Generate_Page_Links()
+        {
+
+            // Arrange - определение вспомогательного метода HTML - это необходимо
+            // для применения расширяющего метода
+            HtmlHelper myHelper = null;
+
+            // Arrange - создание объекта PagingInfo
+            PagingInfo pagingInfo = new PagingInfo
+            {
+                CurrentPage = 2,
+                TotalItems = 28,
+                ItemsPerPage = 10
+            };
+
+            // Arrange - настройка делегата с помощью лямбда-выражения
+            Func<int, string> pageUrlDelegate = i => "Page" + i;
+
+            // Act
+            MvcHtmlString result = myHelper.PageLinks(pagingInfo, pageUrlDelegate);
+
+            // Assert
+            Assert.AreEqual(@"<a class=""btn btn-default"" href=""Page1"">1</a>"
+                + @"<a class=""btn btn-default btn-primary selected"" href=""Page2"">2</a>"
+                + @"<a class=""btn btn-default"" href=""Page3"">3</a>",
+                result.ToString());
         }
     }
 }

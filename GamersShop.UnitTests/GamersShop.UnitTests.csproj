@@ -97,11 +97,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GamersShop.Domain\GamersShop.Domain.csproj">
-      <Project>{2D04D2B2-8055-424E-B403-FB997D0B25D2}</Project>
+      <Project>{2d04d2b2-8055-424e-b403-fb997d0b25d2}</Project>
       <Name>GamersShop.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\GamersShop.WebUI\GamersShop.WebUI.csproj">
-      <Project>{1D87BF6B-E1B6-465F-A190-3F142739409D}</Project>
+      <Project>{1d87bf6b-e1b6-465f-a190-3f142739409d}</Project>
       <Name>GamersShop.WebUI</Name>
     </ProjectReference>
   </ItemGroup>
