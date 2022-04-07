@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GamersShop.Domain.Abstract;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,10 +9,20 @@ namespace GamersShop.WebUI.Controllers
 {
     public class NavController : Controller
     {
-        // GET: Nav
-        public string Menu()
+        private readonly IGameRepository repository;
+
+        public NavController(IGameRepository repo)
         {
-            return "Тестируем контроллер Nav";
+            repository = repo;
+        }
+
+        public PartialViewResult Menu()
+        {
+            IEnumerable<string> categories = repository.Games
+                .Select(game => game.Category)
+                .Distinct()
+                .OrderBy(x => x);
+            return PartialView(categories);
         }
     }
 }
