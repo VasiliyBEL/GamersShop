@@ -192,8 +192,10 @@ namespace GamersShop.UnitTests
                  new Game { GameId = 4, Name = "Игра4", Category="Cat2"},
                  new Game { GameId = 5, Name = "Игра5", Category="Cat3"}
             });
-            GameController controller = new GameController(mock.Object);
-            controller.pageSize = 3;
+            GameController controller = new GameController(mock.Object)
+            {
+                pageSize = 3
+            };
 
             // Act
             int res1 = ((GamesListViewModel)controller.List("Cat1").Model).PagingInfo.TotalItems;
