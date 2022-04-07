@@ -18,11 +18,12 @@ namespace GamersShop.WebUI.Controllers
             repository = repo;
         }
 
-        public ViewResult List(int page = 1)
+        public ViewResult List(string category, int page = 1)
         {
             GamesListViewModel model = new GamesListViewModel
             {
                 Games = repository.Games
+                .Where(p => category == null || p.Category == category)
                 .OrderBy(game => game.GameId)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize),
@@ -31,7 +32,8 @@ namespace GamersShop.WebUI.Controllers
                     CurrentPage = page,
                     ItemsPerPage = pageSize,
                     TotalItems = repository.Games.Count()
-                }
+                },
+                CuttentCategory = category
             };
             return View(model);
         }

@@ -34,7 +34,7 @@ namespace GamersShop.UnitTests
             };
 
             // Act
-            GamesListViewModel result = (GamesListViewModel)controller.List(2).Model;
+            GamesListViewModel result = (GamesListViewModel)controller.List(null, 2).Model;
 
             // Assert
             List<Game> games = result.Games.ToList();
@@ -92,7 +92,7 @@ namespace GamersShop.UnitTests
 
             // Act
             GamesListViewModel result
-                = (GamesListViewModel)controller.List(2).Model;
+                = (GamesListViewModel)controller.List(null, 2).Model;
 
             // Assert
             PagingInfo pageInfo = result.PagingInfo;
@@ -100,6 +100,34 @@ namespace GamersShop.UnitTests
             Assert.AreEqual(pageInfo.ItemsPerPage, 3);
             Assert.AreEqual(pageInfo.TotalItems, 5);
             Assert.AreEqual(pageInfo.TotalPages, 2);
+        }
+
+        [TestMethod]
+        public void Can_Filter_Games()
+        {
+            // Arrange
+            Mock<IGameRepository> mock = new Mock<IGameRepository>();
+            mock.Setup(m => m.Games).Returns(new List<Game>
+                 {
+                       new Game { GameId = 1, Name = "Игра1", Category="Cat1"},
+                       new Game { GameId = 2, Name = "Игра2", Category="Cat2"},
+                       new Game { GameId = 3, Name = "Игра3", Category="Cat1"},
+                       new Game { GameId = 4, Name = "Игра4", Category="Cat2"},
+                       new Game { GameId = 5, Name = "Игра5", Category="Cat3"}
+                 });
+            GameController controller = new GameController(mock.Object)
+            {
+                pageSize = 3
+            };
+
+            // Action
+            List<Game> result = ((GamesListViewModel)controller.List("Cat2", 1).Model)
+                .Games.ToList();
+
+            // Assert
+            Assert.AreEqual(result.Count(), 2);
+            Assert.IsTrue(result[0].Name == "Игра2" && result[0].Category == "Cat2");
+            Assert.IsTrue(result[1].Name == "Игра4" && result[1].Category == "Cat2");
         }
     }
 }
