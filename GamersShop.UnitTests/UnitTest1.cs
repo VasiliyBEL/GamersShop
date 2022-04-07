@@ -129,5 +129,31 @@ namespace GamersShop.UnitTests
             Assert.IsTrue(result[0].Name == "Игра2" && result[0].Category == "Cat2");
             Assert.IsTrue(result[1].Name == "Игра4" && result[1].Category == "Cat2");
         }
+
+        [TestMethod]
+        public void Can_Create_Categories()
+        {
+            // Arrange
+            Mock<IGameRepository> mock = new Mock<IGameRepository>();
+            mock.Setup(m => m.Games).Returns(new List<Game>
+            {
+            new Game { GameId = 1, Name = "Игра1", Category="Симулятор"},
+            new Game { GameId = 2, Name = "Игра2", Category="Симулятор"},
+            new Game { GameId = 3, Name = "Игра3", Category="Шутер"},
+            new Game { GameId = 4, Name = "Игра4", Category="RPG"},
+            });
+
+            // Arrange
+            NavController target = new NavController(mock.Object);
+
+            // Act
+            List<string> results = ((IEnumerable<string>)target.Menu().Model).ToList();
+
+            // Assert
+            Assert.AreEqual(results.Count(), 3);
+            Assert.AreEqual(results[0], "RPG");
+            Assert.AreEqual(results[1], "Симулятор");
+            Assert.AreEqual(results[2], "Шутер");
+        }
     }
 }
