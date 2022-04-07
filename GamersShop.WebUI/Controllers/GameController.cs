@@ -33,7 +33,7 @@ namespace GamersShop.WebUI.Controllers
                     ItemsPerPage = pageSize,
                     TotalItems = repository.Games.Count()
                 },
-                CuttentCategory = category
+                CurrentCategory = category
             };
             return View(model);
         }

@@ -12,6 +12,6 @@ namespace GamersShop.WebUI.Models
 
         public PagingInfo PagingInfo { get; set; }
 
-        public string CuttentCategory { get; set; }
+        public string CurrentCategory { get; set; }
     }
 }
