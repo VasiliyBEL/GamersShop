@@ -195,5 +195,34 @@ namespace GamersShop.UnitTests
             Assert.AreSame(result.Cart, cart);
             Assert.AreEqual(result.ReturnUrl, "myUrl");
         }
+
+        [TestMethod]
+        public void Cannot_Checkout_Empty_Cart()
+        {
+            // Arrange
+            Mock<IOrderProcessor> mock = new Mock<IOrderProcessor>();
+
+            // Arrange
+            Cart cart = new Cart();
+
+            // Arrange
+            ShippingDetail shippingDetails = new ShippingDetail();
+
+            // Arrange
+            CartController controller = new CartController(null, mock.Object);
+
+            // Act
+            ViewResult result = controller.Checkout(cart, shippingDetails);
+
+            // Assert
+            mock.Verify(m => m.ProcessOrder(It.IsAny<Cart>(), It.IsAny<ShippingDetail>()),
+                Times.Never());
+
+            // Assert 
+            Assert.AreEqual("", result.ViewName);
+
+            // Assert
+            Assert.AreEqual(false, result.ViewData.ModelState.IsValid);
+        }
     }
 }
