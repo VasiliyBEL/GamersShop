@@ -122,6 +122,9 @@ namespace GamersShop.UnitTests
             Assert.AreEqual(cart.Lines.Count(), 0);
         }
 
+        /// <summary>
+        /// Можно добавить игру в корзину
+        /// </summary>
         [TestMethod]
         public void Can_Add_To_Cart()
         {
@@ -172,7 +175,10 @@ namespace GamersShop.UnitTests
             Assert.AreEqual(result.RouteValues["returnUrl"], "myUrl");
         }
 
-        // Проверяем URL
+
+        /// <summary>
+        /// Проверяем URL
+        /// </summary>
         [TestMethod]
         public void Can_View_Cart_Contents()
         {
