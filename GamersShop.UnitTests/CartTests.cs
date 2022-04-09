@@ -224,5 +224,35 @@ namespace GamersShop.UnitTests
             // Assert
             Assert.AreEqual(false, result.ViewData.ModelState.IsValid);
         }
+
+        [TestMethod]
+        public void Cannot_Checkout_Invalid_ShippingDetails()
+        {
+            // Arrange
+            Mock<IOrderProcessor> mock = new Mock<IOrderProcessor>();
+
+            // Arrange
+            Cart cart = new Cart();
+            cart.AddItem(new Game(), 1);
+
+            // Arrange
+            CartController controller = new CartController(null, mock.Object);
+
+            // Arrange
+            controller.ModelState.AddModelError("error", "error");
+
+            // Act
+            ViewResult result = controller.Checkout(cart, new ShippingDetail());
+
+            // Assert
+            mock.Verify(m => m.ProcessOrder(It.IsAny<Cart>(), It.IsAny<ShippingDetail>()),
+                Times.Never());
+
+            // Assert
+            Assert.AreEqual("", result.ViewName);
+
+            // Assert
+            Assert.AreEqual(false, result.ViewData.ModelState.IsValid);
+        }
     }
 }
