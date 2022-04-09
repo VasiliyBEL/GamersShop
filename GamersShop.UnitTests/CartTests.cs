@@ -51,5 +51,30 @@ namespace GamersShop.UnitTests
             Assert.AreEqual(results[0].Quantity, 6);    // 6 экземпляров добавлено в корзину
             Assert.AreEqual(results[1].Quantity, 1);
         }
+
+        [TestMethod]
+        public void Can_Remove_Line()
+        {
+            // Act
+            Game game1 = new Game { GameId = 1, Name = "Игра1" };
+            Game game2 = new Game { GameId = 2, Name = "Игра2" };
+            Game game3 = new Game { GameId = 3, Name = "Игра3" };
+
+            // Act
+            Cart cart = new Cart();
+
+            // Act
+            cart.AddItem(game1, 1);
+            cart.AddItem(game2, 4);
+            cart.AddItem(game3, 2);
+            cart.AddItem(game2, 1);
+
+            // Arrange
+            cart.RemoveLine(game2);
+
+            // Assert
+            Assert.AreEqual(cart.Lines.Where(c => c.Game == game2).Count(), 0);
+            Assert.AreEqual(cart.Lines.Count(), 2);
+        }
     }
 }
