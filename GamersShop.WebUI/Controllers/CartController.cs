@@ -1,5 +1,6 @@
 ﻿using GamersShop.Domain.Abstract;
 using GamersShop.Domain.Entities;
+using GamersShop.WebUI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,15 @@ namespace GamersShop.WebUI.Controllers
         private readonly IGameRepository repository;
 
         // GET: Cart
+        public ViewResult Index(string returnUrl)
+        {
+            return View(new CartIndexViewModel
+            {
+                Cart = GetCart(),
+                ReturnUrl = returnUrl
+            });
+        }
+
         public CartController(IGameRepository repo)
         {
             repository = repo;
