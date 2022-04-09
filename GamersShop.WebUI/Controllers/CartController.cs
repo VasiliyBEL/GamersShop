@@ -56,5 +56,10 @@ namespace GamersShop.WebUI.Controllers
         {
             return PartialView(cart);
         }
+
+        public ViewResult Checkout(Cart cart, ShippingDetail shippingDetail)
+        {
+            return View(new ShippingDetail());
+        }
     }
 }
