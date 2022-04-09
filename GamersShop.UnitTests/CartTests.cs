@@ -139,7 +139,7 @@ namespace GamersShop.UnitTests
             Cart cart = new Cart();
 
             // Act
-            CartController controller = new CartController(mock.Object);
+            CartController controller = new CartController(mock.Object, null);
 
             // Arrange
             controller.AddToCart(cart, 1, null);
@@ -165,7 +165,7 @@ namespace GamersShop.UnitTests
             Cart cart = new Cart();
 
             // Act
-            CartController controller = new CartController(mock.Object);
+            CartController controller = new CartController(mock.Object, null);
 
             // Arrange
             RedirectToRouteResult result = controller.AddToCart(cart, 2, "myUrl");
@@ -186,7 +186,7 @@ namespace GamersShop.UnitTests
             Cart cart = new Cart();
 
             // Act
-            CartController target = new CartController(null);
+            CartController target = new CartController(null, null);
 
             // Arrange
             CartIndexViewModel result = (CartIndexViewModel)target.Index(cart, "myUrl").ViewData.Model;

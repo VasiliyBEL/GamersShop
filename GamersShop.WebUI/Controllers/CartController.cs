@@ -12,6 +12,7 @@ namespace GamersShop.WebUI.Controllers
     public class CartController : Controller
     {
         private readonly IGameRepository repository;
+        private readonly IOrderProcessor orderProcessor;
 
         // GET: Cart
         public ViewResult Index(Cart cart, string returnUrl)
@@ -23,9 +24,35 @@ namespace GamersShop.WebUI.Controllers
             });
         }
 
-        public CartController(IGameRepository repo)
+        public CartController(IGameRepository repo, IOrderProcessor processor)
         {
             repository = repo;
+            orderProcessor = processor;
+        }
+
+        public ViewResult Checkout()
+        {
+            return View(new ShippingDetail());
+        }
+
+        [HttpPost]
+        public ViewResult Checkout(Cart cart, ShippingDetail shippingDetail)
+        {
+            if (cart.Lines.Count() == 0)
+            {
+                ModelState.AddModelError("", "Извините, ваша корзина пуста!");
+            }
+
+            if (ModelState.IsValid)
+            {
+                orderProcessor.ProcessOrder(cart, shippingDetail);
+                cart.Clear();
+                return View("Completed");
+            }
+            else
+            {
+                return View(shippingDetail);
+            }
         }
 
         public RedirectToRouteResult AddToCart(Cart cart, int gameId, string returnUrl)
@@ -55,11 +82,6 @@ namespace GamersShop.WebUI.Controllers
         public PartialViewResult Summary(Cart cart)
         {
             return PartialView(cart);
-        }
-
-        public ViewResult Checkout(Cart cart, ShippingDetail shippingDetail)
-        {
-            return View(new ShippingDetail());
         }
     }
 }
