@@ -12,14 +12,14 @@ namespace GamersShop.UnitTests
         [TestMethod]
         public void Can_Add_New_Lines()
         {
-            // Act
+            // Arrange
             Game game1 = new Game { GameId = 1, Name = "Игра1" };
             Game game2 = new Game { GameId = 2, Name = "Игра2" };
 
-            // Act
+            // Arrange
             Cart cart = new Cart();
 
-            // Arrange
+            // Act
             cart.AddItem(game1, 1);
             cart.AddItem(game2, 1);
             List<CartLine> results = cart.Lines.ToList();
@@ -33,14 +33,14 @@ namespace GamersShop.UnitTests
         [TestMethod]
         public void Can_Add_Quantity_For_Existing_Lines()
         {
-            // Act
+            // Arrange
             Game game1 = new Game { GameId = 1, Name = "Игра1" };
             Game game2 = new Game { GameId = 2, Name = "Игра2" };
 
-            // Act
+            // Arrange
             Cart cart = new Cart();
 
-            // Arrange
+            // Act
             cart.AddItem(game1, 1);
             cart.AddItem(game2, 1);
             cart.AddItem(game1, 5);
@@ -55,21 +55,21 @@ namespace GamersShop.UnitTests
         [TestMethod]
         public void Can_Remove_Line()
         {
-            // Act
+            // Arrange
             Game game1 = new Game { GameId = 1, Name = "Игра1" };
             Game game2 = new Game { GameId = 2, Name = "Игра2" };
             Game game3 = new Game { GameId = 3, Name = "Игра3" };
 
-            // Act
+            // Arrange
             Cart cart = new Cart();
 
-            // Act
+            // Arrange
             cart.AddItem(game1, 1);
             cart.AddItem(game2, 4);
             cart.AddItem(game3, 2);
             cart.AddItem(game2, 1);
 
-            // Arrange
+            // Act
             cart.RemoveLine(game2);
 
             // Assert
@@ -80,14 +80,14 @@ namespace GamersShop.UnitTests
         [TestMethod]
         public void Calculate_Cart_Total()
         {
-            // Act
+            // Arrange
             Game game1 = new Game { GameId = 1, Name = "Игра1", Price = 100 };
             Game game2 = new Game { GameId = 2, Name = "Игра2", Price = 55 };
 
-            // Act
+            // Arrange
             Cart cart = new Cart();
 
-            // Arrange
+            // Act
             cart.AddItem(game1, 1);
             cart.AddItem(game2, 1);
             cart.AddItem(game1, 5);
@@ -95,6 +95,26 @@ namespace GamersShop.UnitTests
 
             // Assert
             Assert.AreEqual(result, 655);
+        }
+
+        [TestMethod]
+        public void Can_Clear_Contents()
+        {
+            // Arrange
+            Game game1 = new Game { GameId = 1, Name = "Игра1", Price = 100 };
+            Game game2 = new Game { GameId = 2, Name = "Игра2", Price = 55 };
+
+            // Arrange
+            Cart cart = new Cart();
+
+            // Act
+            cart.AddItem(game1, 1);
+            cart.AddItem(game2, 1);
+            cart.AddItem(game1, 5);
+            cart.Clear();
+
+            // Assert
+            Assert.AreEqual(cart.Lines.Count(), 0);
         }
     }
 }
