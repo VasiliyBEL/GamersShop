@@ -13,7 +13,7 @@ using GamersShop.WebUI.Models;
 namespace GamersShop.UnitTests
 {
     [TestClass]
-    public class UnitTest1
+    public class ControllerTests
     {
         [TestMethod]
         public void Can_Paginate()

@@ -8,7 +8,7 @@ namespace GamersShop.Domain.Entities
 {
     public class Cart
     {
-        private List<CartLine> lineCollection = new List<CartLine>();
+        private readonly List<CartLine> lineCollection = new List<CartLine>();
 
         public void AddItem(Game game, int quantity)
         {
