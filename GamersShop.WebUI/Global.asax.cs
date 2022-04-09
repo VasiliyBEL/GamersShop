@@ -1,3 +1,5 @@
+using GamersShop.Domain.Entities;
+using GamersShop.WebUI.Infrastructure.Binders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +15,7 @@ namespace GamersShop.WebUI
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            ModelBinders.Binders.Add(typeof(Cart), new CartModelBinder());
         }
     }
 }
