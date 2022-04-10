@@ -46,5 +46,10 @@ namespace GamersShop.WebUI.Controllers
                 return View(game);
             }
         }
+
+        public ViewResult Create()
+        {
+            return View("Edit", new Game());
+        }
     }
 }
