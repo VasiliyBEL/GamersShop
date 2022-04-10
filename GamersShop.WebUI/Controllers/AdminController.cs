@@ -1,4 +1,5 @@
 ﻿using GamersShop.Domain.Abstract;
+using GamersShop.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,13 @@ namespace GamersShop.WebUI.Controllers
         public ViewResult Index()
         {
             return View(repository.Games);
+        }
+
+        public ViewResult Edit(int gameId)
+        {
+            Game game = repository.Games
+                .FirstOrDefault(g => g.GameId == gameId);
+            return View(game);
         }
     }
 }
