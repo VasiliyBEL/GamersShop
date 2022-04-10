@@ -51,5 +51,17 @@ namespace GamersShop.WebUI.Controllers
         {
             return View("Edit", new Game());
         }
+
+        [HttpPost]
+        public ActionResult Delete(int gameId)
+        {
+            Game deletedGame = repository.DeleteGame(gameId);
+            if (deletedGame != null)
+            {
+                TempData["message"] = string.Format("Игра \"{0}\" была удалена",
+                    deletedGame.Name);
+            }
+            return RedirectToAction("Index");
+        }
     }
 }
