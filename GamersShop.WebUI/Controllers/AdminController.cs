@@ -12,7 +12,7 @@ namespace GamersShop.WebUI.Controllers
         readonly IGameRepository repository;
 
         // GET: Admin
-        public AdminController (IGameRepository repo)
+        public AdminController(IGameRepository repo)
         {
             repository = repo;
         }
