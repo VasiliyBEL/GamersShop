@@ -260,5 +260,52 @@ namespace GamersShop.UnitTests
 
             // Assert
         }
+
+        [TestMethod]
+        public void Can_Save_Valid_Changes()
+        {
+            // Arrange
+            Mock<IGameRepository> mock = new Mock<IGameRepository>();
+
+            // Arrange
+            AdminController controller = new AdminController(mock.Object);
+
+            // Arrange
+            Game game = new Game { Name = "Test" };
+
+            // Act
+            ActionResult result = controller.Edit(game);
+
+            // Assert
+            mock.Verify(m => m.SaveGame(game));
+
+            // Assert
+            Assert.IsNotInstanceOfType(result, typeof(ViewResult));
+        }
+
+        [TestMethod]
+        public void Cannot_Save_Invalid_Changes()
+        {
+            // Arrange
+            Mock<IGameRepository> mock = new Mock<IGameRepository>();
+
+            // Arrange
+            AdminController controller = new AdminController(mock.Object);
+
+            // Arrange
+            Game game = new Game { Name = "Test" };
+
+            // Arrange
+            controller.ModelState.AddModelError("error", "error");
+
+            // Act
+            ActionResult result = controller.Edit(game);
+
+            // Assert
+            mock.Verify(m => m.SaveGame(It.IsAny<Game>()), Times.Never());
+
+            // Assert
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
+        }
     }
 }
