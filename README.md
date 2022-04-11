@@ -12,3 +12,6 @@ Test Username: admin
 Test Password: 12345
 
 Recommended images for Games: 150 x 150 .png
+
+Place for Games: [C:\Users\vaspn\OneDrive\Рабочий стол\Studying] for example to save the game,
+you can choose the other place for holding.
