@@ -12,3 +12,5 @@ Test Username: admin
 Test Password: 12345
 
 Recommended images for Games: 150 x 150 .png
+
+ISP Server = free hosting for our EFDbContext Database.
