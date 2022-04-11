@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace GamersShop.WebUI.Controllers
 {
+    [Authorize]
     public class AdminController : Controller
     {
         readonly IGameRepository repository;

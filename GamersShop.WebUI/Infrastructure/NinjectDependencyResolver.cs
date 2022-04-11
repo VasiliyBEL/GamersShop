@@ -1,6 +1,8 @@
 ﻿using GamersShop.Domain.Abstract;
 using GamersShop.Domain.Concrete;
 using GamersShop.Domain.Entities;
+using GamersShop.WebUI.Infrastructure.Abstract;
+using GamersShop.WebUI.Infrastructure.Concrete;
 using Moq;
 using Ninject;
 using System;
@@ -44,6 +46,8 @@ namespace GamersShop.WebUI.Infrastructure
 
             kernel.Bind<IOrderProcessor>().To<EmailOrderProcessor>()
                 .WithConstructorArgument("settings", emailSettings);
+
+            kernel.Bind<IAuthProvider>().To<FormAuthProvider>();
         }
     }
 }
