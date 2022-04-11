@@ -10,3 +10,5 @@ configured for persistence through storage that is created using the Entity Fram
 Test Username: admin
 
 Test Password: 12345
+
+Recommended images for Games: 150 x 150 .png
