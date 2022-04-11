@@ -8,4 +8,5 @@ configured for persistence through storage that is created using the Entity Fram
 3. GamersShop.UnitTests (Unit Test Project) - Contains unit tests for the other two projects.
 
 Test Username: admin
+
 Test Password: 12345
