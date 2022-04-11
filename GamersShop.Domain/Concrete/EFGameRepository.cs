@@ -41,6 +41,8 @@ namespace GamersShop.Domain.Concrete
                     dbEntry.Description = game.Description;
                     dbEntry.Price = game.Price;
                     dbEntry.Category = game.Category;
+                    dbEntry.ImageData = game.ImageData;
+                    dbEntry.ImageMimeType = game.ImageMimeType;
                 }
             }
             context.SaveChanges();
