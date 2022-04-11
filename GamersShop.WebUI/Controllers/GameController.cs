@@ -1,4 +1,5 @@
 ﻿using GamersShop.Domain.Abstract;
+using GamersShop.Domain.Entities;
 using GamersShop.WebUI.Models;
 using System;
 using System.Collections.Generic;
@@ -32,12 +33,27 @@ namespace GamersShop.WebUI.Controllers
                     CurrentPage = page,
                     ItemsPerPage = pageSize,
                     TotalItems = category == null ?
-                    repository.Games.Count():
+                    repository.Games.Count() :
                     repository.Games.Where(game => game.Category == category).Count()
                 },
                 CurrentCategory = category
             };
             return View(model);
+        }
+
+        public FileContentResult GetImage(int gameId)
+        {
+            Game game = repository.Games
+                .FirstOrDefault(g => g.GameId == gameId);
+
+            if (game != null)
+            {
+                return File(game.ImageData, game.ImageMimeType);
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }
